@@ -44,20 +44,35 @@
                 <input type="hidden" name="product[price]" value="{{ $watch->price }}">
                 <input type="hidden" name="product[image]" value="{{ $watch->image_url }}">
 
-                <x-primary-button class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
-                    Додати в кошик
-                </x-primary-button>
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.watchers.edit', $watch->id) }}"
+                           class="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                            Edit
+                        </a>
+                    @else
+                        <x-primary-button
+                            class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                            Add to Cart
+                        </x-primary-button>
+                    @endif
+                @endauth
+
+                @guest
+                    <x-primary-button
+                        class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                        Add to Cart
+                    </x-primary-button>
+                @endguest
             </form>
         </div>
     </div>
 
-    <!-- Опис товару -->
     <div class="mt-6">
         <h2 class="text-lg font-semibold text-gray-900">Опис</h2>
         <p class="text-gray-700 mt-2">{{ $watch->description ?? 'Опис відсутній' }}</p>
     </div>
 
-    <!-- Відгуки -->
     <div class="mt-8">
         <h2 class="text-lg font-semibold text-gray-900">Відгуки</h2>
 
