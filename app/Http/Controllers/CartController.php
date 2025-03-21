@@ -31,11 +31,10 @@ class CartController extends Controller
     public function updateCart(Request $request)
     {
         $cart = session()->get('cart', []);
-
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
 
-        if(isset($cart[$productId])) {
+        if (isset($cart[$productId])) {
             if ($quantity <= 0) {
                 unset($cart[$productId]);
             } else {
@@ -45,8 +44,18 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return redirect()->route('profile.profile');
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        return response()->json([
+            'success' => true,
+            'cartItem' => $cart[$productId] ?? null,
+            'totalPrice' => number_format($total, 2)
+        ]);
     }
+
 
     public function removeFromCart(Request $request)
     {
@@ -59,6 +68,15 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return redirect()->route('profile.profile');
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        return response()->json([
+            'success' => true,
+            'totalPrice' => number_format($total, 2)
+        ]);
     }
+
 }

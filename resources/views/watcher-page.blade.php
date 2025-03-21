@@ -30,11 +30,6 @@
                 </p>
                 <form action="{{ route('cart.add') }}" method="POST" class="mt-2">
                     @csrf
-                    <input type="hidden" name="product[id]" value="{{ $watch->id }}">
-                    <input type="hidden" name="product[name]" value="{{ $watch->product_name }}">
-                    <input type="hidden" name="product[price]" value="{{ $watch->price }}">
-                    <input type="hidden" name="product[image]" value="{{ $watch->image_url }}">
-
                     @auth
                         @if(auth()->user()->role === 'admin')
                             <a href="{{ route('admin.watchers.edit', $watch->id) }}"
@@ -43,7 +38,12 @@
                             </a>
                         @else
                             <x-primary-button
-                                class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                                type="button"
+                                class="add-to-cart-btn bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200"
+                                data-product-id="{{ $watch->id }}"
+                                data-product-name="{{ $watch->product_name }}"
+                                data-product-price="{{ $watch->price }}"
+                                data-product-image="{{ $watch->image_url }}">
                                 Add to Cart
                             </x-primary-button>
                         @endif
@@ -51,7 +51,12 @@
 
                     @guest
                         <x-primary-button
-                            class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                            type="button"
+                            class="add-to-cart-btn bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200"
+                            data-product-id="{{ $watch->id }}"
+                            data-product-name="{{ $watch->product_name }}"
+                            data-product-price="{{ $watch->price }}"
+                            data-product-image="{{ $watch->image_url }}">
                             Add to Cart
                         </x-primary-button>
                     @endguest

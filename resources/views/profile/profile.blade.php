@@ -41,7 +41,7 @@
                                 <div>
                                     <h3 class="text-lg font-semibold text-gray-700">{{ $item['name'] }}</h3>
                                     <p class="text-gray-600">Ціна: {{ number_format($item['price'], 2) }} грн</p>
-                                    <form action="{{ route('cart.update') }}" method="POST" class="mt-2">
+                                    <form action="{{ route('cart.update') }}" method="POST" class="mt-2 update-quantity-form">
                                         @csrf
                                         @method('PUT')
                                         <x-input-label for="quantity-{{ $productId }}" class="block text-sm">
@@ -55,7 +55,7 @@
                                         </x-blue-button>
                                     </form>
                                 </div>
-                                <form action="{{ route('cart.remove') }}" method="POST" style="display:inline;">
+                                <form action="{{ route('cart.remove') }}" method="POST" class="delete-item-form" style="display:inline; ">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="product_id" value="{{ $productId }}">

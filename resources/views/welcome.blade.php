@@ -82,11 +82,6 @@
                         <div class="text-lg font-bold text-gray-900">${{ number_format($product->price, 2) }}</div>
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="product[id]" value="{{ $product->id }}">
-                            <input type="hidden" name="product[name]" value="{{ $product->product_name }}">
-                            <input type="hidden" name="product[price]" value="{{ $product->price }}">
-                            <input type="hidden" name="product[image]" value="{{ $product->image_url }}">
-
                             @auth
                                 @if(auth()->user()->role === 'admin')
                                     <a href="{{ route('admin.watchers.edit', $product->id) }}"
@@ -95,17 +90,29 @@
                                     </a>
                                 @else
                                     <x-primary-button
-                                        class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                                        type="button"
+                                        class="add-to-cart-btn bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200"
+                                        data-product-id="{{ $product->id }}"
+                                        data-product-name="{{ $product->product_name }}"
+                                        data-product-price="{{ $product->price }}"
+                                        data-product-image="{{ $product->image_url }}">
                                         Add to Cart
                                     </x-primary-button>
+
                                 @endif
                             @endauth
 
                             @guest
                                 <x-primary-button
-                                    class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">
+                                    type="button"
+                                    class="add-to-cart-btn bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200"
+                                    data-product-id="{{ $product->id }}"
+                                    data-product-name="{{ $product->product_name }}"
+                                    data-product-price="{{ $product->price }}"
+                                    data-product-image="{{ $product->image_url }}">
                                     Add to Cart
                                 </x-primary-button>
+
                             @endguest
                         </form>
 
