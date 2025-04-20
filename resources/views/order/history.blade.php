@@ -11,7 +11,7 @@
                 <div class="space-y-4 mt-4">
                     @foreach ($order->orderItems as $item)
                         <div class="flex justify-between">
-                            <p class="text-gray-700">{{ $item->watcher->product_name }} x{{ $item->quantity }}</p>
+                            <p class="text-gray-700">{{ $item->product->product_name }} x{{ $item->quantity }}</p>
                             <p class="text-gray-600">{{ number_format($item->price, 2) }} грн</p>
                         </div>
                     @endforeach

@@ -50,8 +50,6 @@ document.querySelector("#profile-form").addEventListener("submit", function(even
         .catch(error => console.error("Помилка:", error));
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const updateQuantityForms = document.querySelectorAll('.cart-item .update-quantity-form');
 

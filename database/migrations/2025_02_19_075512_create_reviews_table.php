@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -16,11 +17,11 @@ return new class extends Migration {
             $table->text('review_text')->nullable();
             $table->timestamp('review_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('watcher_id')->constrained('watchers')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
 
-            $table->unique(['user_id', 'watcher_id']);
+            $table->unique(['user_id', 'product_id']);
         });
-
     }
 
     /**

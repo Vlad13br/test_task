@@ -20,37 +20,40 @@
                                     Profile
                                 </a>
                             @endif
-                                @if(auth()->user()->role === 'admin')
-                                    <a href="/dashboard"
-                                       class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-                                        Dashboard
-                                    </a>
-                                @endif
-                        @endauth
-                               </div>
-                </div>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div class="relative ml-3">
-                    <div>
-                        @guest()
-                            <a href="/register"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</a>
-                            <a href="/login"
-                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log
-                                in</a>
-                        @endguest()
-
-                        @auth()
-                            <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @if(auth()->user()->role === 'admin')
+                                <a href="/dashboard"
+                                   class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                                    Dashboard
+                                </a>
+                            @endif
+                            <form action="{{ route('admin.test') }}" method="POST" class="inline">
                                 @csrf
                                 <button type="submit"
                                         class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-                                    Log out
+                                    Test Admin
                                 </button>
                             </form>
                         @endauth
                     </div>
+                </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div>
+                    @guest()
+                        <a href="/register"
+                           class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</a>
+                        <a href="/login"
+                           class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log in</a>
+                    @endguest()
+                    @auth()
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                                Log out
+                            </button>
+                        </form>
+                    @endauth
                 </div>
             </div>
         </div>

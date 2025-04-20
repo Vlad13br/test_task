@@ -14,7 +14,7 @@ class Review extends Model
         'user_id',
         'rating',
         'review_text',
-        'watcher_id'
+        'product_id'
     ];
 
     public function user()
@@ -24,6 +24,6 @@ class Review extends Model
 
     public function watcher()
     {
-        return $this->belongsTo(Watcher::class);
+        return $this->belongsTo(Product::class);
     }
 }

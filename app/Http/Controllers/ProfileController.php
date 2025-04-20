@@ -24,19 +24,4 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'orders', 'cart'));
     }
 
-
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request)
-    {
-        $user = $request->user();
-
-        $user->fill($request->validated());
-
-        $user->save();
-
-        return redirect()->route('profile.profile')->with('success', 'Дані успішно оновлено');
-    }
-
 }

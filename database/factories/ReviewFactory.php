@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Review;
 use App\Models\User;
-use App\Models\Watcher;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +21,7 @@ class ReviewFactory extends Factory
             'review_text' => fake()->sentence(),
             'review_date' => now(),
             'user_id' => User::factory(),
-            'watcher_id' => Watcher::factory(),
+            'product_id' => Product::factory(),
         ];
     }
 }

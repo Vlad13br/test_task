@@ -4,23 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Review;
-use App\Models\Watcher;
+use App\Models\Product;
 
 class ReviewController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
-            'review_text' => 'nullable|string|max:1000',
-            'watcher_id' => 'required|exists:watchers,id',
-        ]);
 
         $user = auth()->user();
-        $watcherId = $request->watcher_id;
+        $productId = $request->product_id;
 
         $existingReview = Review::where('user_id', $user->id)
-            ->where('watcher_id', $watcherId)
+            ->where('product_id', $productId)
             ->first();
 
         if ($existingReview) {
@@ -29,12 +24,12 @@ class ReviewController extends Controller
 
         Review::create([
             'user_id' => $user->id,
-            'watcher_id' => $watcherId,
+            'product_id' => $productId,
             'rating' => $request->rating,
             'review_text' => $request->review_text,
         ]);
 
-        return redirect()->route('watch.show', ['id' => $watcherId])
+        return redirect()->route('watch.show', ['id' => $productId])
             ->with('success', 'Ваш відгук успішно додано.');
     }
 

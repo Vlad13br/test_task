@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Watcher;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,7 @@ class OrderItemFactory extends Factory
     {
         return [
             'order_id' => Order::factory(),
-            'watcher_id' => Watcher::factory(),
+            'product_id' => Product::factory(),
             'quantity' => fake()->numberBetween(1, 5),
             'price' => fake()->randomFloat(2, 50, 1000),
         ];

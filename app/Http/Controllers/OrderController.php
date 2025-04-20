@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Watcher;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -31,16 +31,16 @@ class OrderController extends Controller
         ]);
 
         foreach ($cart as $productId => $item) {
-            $watcher = Watcher::find($productId);
-            if (!$watcher) {
+            $product = Product::find($productId);
+            if (!$product) {
                 return response()->json(['message' => 'Товар не знайдено'], 400);
             }
 
             OrderItem::create([
                 'order_id' => $order->id,
-                'watcher_id' => $watcher->id,
+                'product_id' => $product->product_id,
                 'quantity' => $item['quantity'],
-                'price' => $watcher->price,
+                'price' => $product->price,
             ]);
         }
 
@@ -53,45 +53,10 @@ class OrderController extends Controller
     {
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
-            ->with('orderItems.watcher')
+            ->with('orderItems.product')
             ->get();
 
         return view('order.history', compact('orders'));
-    }
-
-    public function index()
-    {
-        $orders = Order::with('orderItems.watcher')
-        ->get();
-
-        return view('admin.orders.index', compact('orders'));
-    }
-
-    public function edit(Order $order)
-    {
-        return view('admin.orders.edit', compact('order'));
-    }
-
-    public function update(Request $request, Order $order)
-    {
-        $request->validate([
-            'shipping_status' => 'required|string',
-            'payment_method' => 'nullable|string',
-        ]);
-
-        $order->update([
-            'shipping_status' => $request->shipping_status,
-            'payment_method' => $request->payment_method,
-        ]);
-
-        return redirect()->route('admin.orders')->with('success', 'Замовлення оновлено.');
-    }
-
-    public function destroy(Request $request, Order $order)
-    {
-        $order->delete();
-
-        return redirect()->route('admin.orders')->with('success', 'Замовлення видалено.');
     }
 
 }

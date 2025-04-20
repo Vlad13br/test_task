@@ -10,6 +10,16 @@
                     <x-text-input type="text" name="product_name" id="product_name" class="mt-1 block w-full px-3 py-2" required />
                 </div>
                 <div>
+                    <x-input-label for="category_id" class="block text-sm font-medium text-gray-700">Категорія</x-input-label>
+                    <select name="category_id" id="category_id" class="mt-1 block w-full px-3 py-2" required>
+                        <option value="">Виберіть категорію</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <div>
                     <x-input-label for="price" class="block text-sm font-medium text-gray-700">Ціна</x-input-label>
                     <x-text-input type="number" name="price" id="price" class="mt-1 block w-full px-3 py-2" required />
                 </div>
@@ -17,10 +27,7 @@
                     <x-input-label for="description" class="block text-sm font-medium text-gray-700">Опис</x-input-label>
                     <textarea name="description" id="description" class="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md"></textarea>
                 </div>
-                <div>
-                    <x-input-label for="material" class="block text-sm font-medium text-gray-700">Матеріал</x-input-label>
-                    <x-text-input type="text" name="material" id="material" class="mt-1 block w-full px-3 py-2" />
-                </div>
+
                 <div>
                     <x-input-label for="brand" class="block text-sm font-medium text-gray-700">Бренд</x-input-label>
                     <x-text-input type="text" name="brand" id="brand" class="mt-1 block w-full px-3 py-2" />

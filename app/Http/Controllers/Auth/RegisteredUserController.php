@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $attributes = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -40,12 +40,16 @@ class RegisteredUserController extends Controller
         ]);
 
         $attributes['password'] = Hash::make($attributes['password']);
+
         $user = User::create($attributes);
-
-//        event(new Registered($user));
-
+        event(new Registered($user));
         Auth::login($user);
-        return redirect('/');
+
+        return response()->json([
+            'message' => 'Registration successful.',
+            'redirect' => url('/')
+        ]);
     }
+
 
 }

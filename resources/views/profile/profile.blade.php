@@ -3,27 +3,7 @@
         <div class="flex flex-wrap gap-6">
             <section class="flex-1 bg-white p-6 rounded-lg shadow-md animate-fadeInUp">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Мій профіль</h2>
-                @if(session('success'))
-                    <p class="text-green-600">{{ session('success') }}</p>
-                @endif
-                <form id="profile-form" action="{{ route('profile.update') }}" method="POST" class="grid gap-4">
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <x-input-label>Ім’я:</x-input-label>
-                        <x-text-input type="text" name="name" value="{{ auth()->user()->name }}" class="w-full p-2"/>
-                    </div>
-                    <div>
-                        <x-input-label> Email:</x-input-label>
-                        <x-text-input type="email" name="email" value="{{ auth()->user()->email }}" class="w-full p-2"/>
-                    </div>
-                    <x-blue-button>
-                        Зберегти
-                    </x-blue-button>
-                </form>
-
-                <p id="status-message" class="text-green-600 mt-2 hidden">Зміни збережено!</p>
-                <a href="{{ route('order.history') }}"
+          <a href="{{ route('order.history') }}"
                    class="mt-4 block text-center bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-700 transition">
                     Переглянути історію замовлень
                 </a>
